@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
@@ -37,11 +38,18 @@ class CrimeListFragment : Fragment() {
 
         val tittleTextView: TextView = view.findViewById(R.id.crime_title)
         val dateTextView: TextView = view.findViewById(R.id.crime_date)
+        private val solvedImageView: ImageView = view.findViewById(R.id.crime_solved)
+
 
         fun bind(crime: Crime){
             this.crime = crime
             tittleTextView.text = this.crime.title
             dateTextView.text = this.crime.date.toString()
+            solvedImageView.visibility = if(crime.isSolved){
+                View.VISIBLE
+            } else {
+                View.INVISIBLE
+            }
         }
 
         override fun onClick(v: View?) {
