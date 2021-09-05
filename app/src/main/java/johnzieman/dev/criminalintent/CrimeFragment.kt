@@ -93,6 +93,11 @@ class CrimeFragment : Fragment() {
         solvedCheckBox.jumpDrawablesToCurrentState()
     }
 
+    override fun onStop() {
+        super.onStop()
+        crimeDetailViewModel.saveCrime(crime)
+    }
+
     companion object {
         fun newInstance(crimeId: UUID): CrimeFragment{
             val args = Bundle().apply {
