@@ -17,7 +17,8 @@ import java.util.*
 private const val TAG = "CrimeFragment"
 private const val ARG_CRIME_ID = "crime_id"
 private const val DIALOG_DATE = "DialogDate"
-class CrimeFragment : Fragment() {
+private const val REQUEST_DATE = 0
+class CrimeFragment : Fragment(), DataPickerFragment.Callbacks {
 
     private lateinit var crime: Crime
     private lateinit var titleField: EditText
@@ -59,6 +60,11 @@ class CrimeFragment : Fragment() {
         )
     }
 
+    override fun onDatesSelected(date: Date) {
+        crime.date = date
+        updateUI()
+    }
+
     override fun onStart() {
         super.onStart()
 
@@ -84,7 +90,8 @@ class CrimeFragment : Fragment() {
         }
 
         dateButton.setOnClickListener {
-            DataPickerFragment().apply {
+            DataPickerFragment.newInstance(crime.date).apply {
+                setTargetFragment(this@CrimeFragment, REQUEST_DATE)
                 show(this@CrimeFragment.parentFragmentManager, DIALOG_DATE)
             }
         }
